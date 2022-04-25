@@ -29,10 +29,10 @@ function App() {
 
   return (
     <React.Fragment>
-      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} /> {/* baja el booleano de autenticacion y sube el evento onclick*/}
       <main>
-        {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
+        {!isLoggedIn && <Login onLogin={loginHandler} />} {/* si es falso que estoy autenticado, muestro el login comp, y sube el emailState.value y el enteredPassword cuando el form es submitted*/}
+        {isLoggedIn && <Home onLogout={logoutHandler} />} {/* si estoy loggeado muestro el home comp, y no se que sube pero dispara el logoutHandler*/}
       </main>
     </React.Fragment>
   );

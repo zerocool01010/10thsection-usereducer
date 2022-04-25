@@ -59,17 +59,20 @@ const Login = (props) => {
     };
   }, []);
 
+  const { emailIsValid: eValid } = emailState
+  const { passIsValid: pValid } = passState
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       console.log("Checking form validity!");
-      setFormIsValid(emailState.emailIsValid && passState.passIsValid);
+      setFormIsValid(eValid && pValid);
     }, 500);
 
     return () => {
       console.log("CLEANUP");
       clearTimeout(identifier);
     };
-  }, [emailState.emailIsValid, passState.passIsValid]);
+  }, [eValid, pValid]);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", val: event.target.value }); //al llamar a dispatchEmail disparamos emailReducer function, y enviamos este obj como param que llegara hasta la function triggered by dispatchEmail

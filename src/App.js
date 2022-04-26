@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import MainHeader from './components/MainHeader/MainHeader';
+import AuthContext from './store/authcontext';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,13 +29,19 @@ function App() {
   };
 
   return (
-    <React.Fragment>
-      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} /> {/* baja el booleano de autenticacion y sube el evento onclick*/}
+    <AuthContext.Provider 
+    value={{
+      isLoggedIn: isLoggedIn, //el primero es la referencia a la propiedad del authcontext.js, el segundo es el valor del state
+    }}
+    >
+      <MainHeader /* isAuthenticated={isLoggedIn} */ onLogout={logoutHandler} /> {/* baja el booleano de autenticacion y sube el evento onclick*/}
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />} {/* si es falso que estoy autenticado, muestro el login comp, y sube el emailState.value y el enteredPassword cuando el form es submitted*/}
         {isLoggedIn && <Home onLogout={logoutHandler} />} {/* si estoy loggeado muestro el home comp, y no se que sube pero dispara el logoutHandler*/}
       </main>
-    </React.Fragment>
+    
+    </AuthContext.Provider>
+
   );
 }
 

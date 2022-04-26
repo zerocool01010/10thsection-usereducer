@@ -32,6 +32,7 @@ function App() {
     <AuthContext.Provider 
     value={{
       isLoggedIn: isLoggedIn, //el primero es la referencia a la propiedad del authcontext.js, el segundo es el valor del state
+      onLogout: logoutHandler //tambien podemos setear props en context para apuntar a functions como en este caso
     }}
     >
       <MainHeader /* isAuthenticated={isLoggedIn} */ onLogout={logoutHandler} /> {/* baja el booleano de autenticacion y sube el evento onclick*/}

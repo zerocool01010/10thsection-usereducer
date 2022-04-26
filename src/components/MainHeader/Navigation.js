@@ -3,7 +3,7 @@ import React, {useContext} from 'react';
 import classes from './Navigation.module.css';
 import AuthContext from '../../store/authcontext';
 
-const Navigation = (props) => {
+const Navigation = () => {
   const ctx = useContext(AuthContext)
 
   return (
@@ -21,7 +21,7 @@ const Navigation = (props) => {
         )}
         {ctx.isLoggedIn && (
           <li>
-            <button onClick={props.onLogout}>Logout</button> {/* mando el event solamente */}
+            <button onClick={ctx.onLogout}>Logout</button> {/* mando el event solamente, antes con props, ahora usando ctx directamente a App.js salteando el MainHeader.js */}
           </li>
         )}
       </ul>

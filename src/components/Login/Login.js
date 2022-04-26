@@ -5,7 +5,7 @@ import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
 /* import { useContext } from "react/cjs/react.production.min"; */
 import AuthContext2 from "../../store/authcontext";
-import Inputs from '../UI/Input/Input'
+import Input from '../UI/Input/Input'
 
 const emailReducer = (state, action) => {
   //recibe un obj en action, y en state es como que guarda el ultimo snapshot de los valores del state o algo asi (en este caso los valores de emailValue y emailIsValid)
@@ -112,15 +112,23 @@ const Login = (props) => {
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
-      <Inputs
-      emailStateValid={emailState.emailIsValid}
-      emailStateValue={emailState.emailValue}
-      passStateIsValid={passState.passIsValid}
-      passStateValue={passState.passValue}
-      emailChangeHandler={emailChangeHandler}
-      validateEmailHandler={validateEmailHandler}
-      passwordChangeHandler={passwordChangeHandler}
-      validatePasswordHandler={validatePasswordHandler}
+      <Input
+      id="email"
+      label="E-mail"
+      type="email"
+      stateValid={emailState.emailIsValid}
+      value={emailState.emailValue}
+      onChange={emailChangeHandler}
+      onBlur={validateEmailHandler}
+      />
+      <Input
+      id="password"
+      label="Password"
+      type="password"
+      stateValid={passState.passIsValid}
+      value={passState.passValue}
+      onChange={passwordChangeHandler}
+      onBlur={validatePasswordHandler}
       />
         <div className={classes.actions}>
           <Button type="submit" className={classes.btn} disabled={!formIsValid}>

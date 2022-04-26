@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+/* import { useContext } from "react/cjs/react.production.min"; */
+import AuthContext2 from "../../store/authcontext";
 
 const emailReducer = (state, action) => {
   //recibe un obj en action, y en state es como que guarda el ultimo snapshot de los valores del state o algo asi (en este caso los valores de emailValue y emailIsValid)
@@ -99,9 +101,11 @@ const Login = (props) => {
     dispatchPass({ type: "INPUT_BLUR" });
   };
 
+  const ctx = useContext(AuthContext2)
+
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.emailValue, passState.passValue);
+    ctx.onLogin2(emailState.emailValue, passState.passValue);
   };
 
   return (

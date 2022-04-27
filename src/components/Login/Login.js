@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, { useState, useEffect, useReducer, useContext, useRef } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -104,15 +104,26 @@ const Login = (props) => {
 
   const ctx = useContext(AuthContext2)
 
+  const emailInputRef = useRef()
+  const passInputRef = useRef()
+
   const submitHandler = (event) => {
     event.preventDefault();
-    ctx.onLogin2(emailState.emailValue, passState.passValue);
+    if (formIsValid) { //si el form es valido ingresando el @ y un pass > 6 chars, entonces esta todo bien
+      ctx.onLogin2(emailState.emailValue, passState.passValue);
+    } else if (!eValid) { //si el email es invalido porque le falta el @
+      emailInputRef.current.goToActivateFocus() //se llama al metodo goToActivateFocus que esta declarado en el componente hijo dentro de un useImperative
+    } else { //si el email es valido puede ser que el pass sea invalido
+      passInputRef.current.goToActivateFocus()
+    }
+   
   };
 
   return (
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
       <Input
+      ref={emailInputRef}
       id="email"
       label="E-mail"
       type="email"
@@ -122,6 +133,7 @@ const Login = (props) => {
       onBlur={validateEmailHandler}
       />
       <Input
+      ref={passInputRef}
       id="password"
       label="Password"
       type="password"
@@ -131,7 +143,7 @@ const Login = (props) => {
       onBlur={validatePasswordHandler}
       />
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button type="submit" className={classes.btn} /* disabled={!formIsValid} */>
             {" "}
             {/* si el formulario no es valido, entonces se desactiva para su uso, ese valor se baja */}
             Login
